@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+
+class CustomBottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
+  const CustomBottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      selectedItemColor: Colors.green,
+      unselectedItemColor: Colors.grey,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.document),
+          activeIcon: Icon(IconlyBold.document),
+          label: 'Fines',
+        ),
+
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.camera),
+          activeIcon: Icon(IconlyBold.camera),
+          label: 'Scan',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.graph),
+          activeIcon: Icon(IconlyBold.graph),
+          label: 'Stats',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.setting),
+          activeIcon: Icon(IconlyBold.setting),
+          label: 'Settings',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.add_user),
+          activeIcon: Icon(IconlyBold.add_user),
+          label: 'Add user',
+        ),
+      ],
+    );
+  }
+}
