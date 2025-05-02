@@ -9,6 +9,7 @@ class FineCard extends StatelessWidget {
   final String time;
   final String location;
   final bool isPaid;
+  final int personId;
 
   const FineCard({
     super.key,
@@ -16,6 +17,7 @@ class FineCard extends StatelessWidget {
     required this.date,
     required this.time,
     required this.location,
+    required this.personId,
     this.isPaid = false,
   });
 
@@ -32,8 +34,10 @@ class FineCard extends StatelessWidget {
             'time': time,
             'location': location,
             'isPaid': isPaid,
+            'personId': personId,
           },
         );
+
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),

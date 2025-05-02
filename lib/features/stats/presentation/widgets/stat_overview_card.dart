@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:grabai/core/theme/app_colors.dart';
 import 'package:grabai/core/theme/text_styles.dart';
 

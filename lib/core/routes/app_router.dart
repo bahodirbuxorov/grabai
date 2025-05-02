@@ -31,6 +31,7 @@ class AppRouter {
                 time: args['time'],
                 location: args['location'],
                 isPaid: args['isPaid'],
+                personId: args['personId'],
               ),
         );
 
