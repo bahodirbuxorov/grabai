@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FineDetailHeader extends StatelessWidget {
   final String imageUrl;
@@ -34,6 +35,17 @@ class FineDetailHeader extends StatelessWidget {
                 Uri.encodeFull(imageUrl),
                 width: double.infinity,
                 fit: BoxFit.fitWidth,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                    child: Container(
+                      width: double.infinity,
+                      color: Colors.grey,
+                    ),
+                  );
+                },
                 errorBuilder: (_, __, ___) => Container(
                   color: Colors.grey.shade200,
                   alignment: Alignment.center,
@@ -73,6 +85,7 @@ class FineDetailHeader extends StatelessWidget {
     );
   }
 }
+
 
 class FullScreenImageViewer extends StatelessWidget {
   final String imageUrl;

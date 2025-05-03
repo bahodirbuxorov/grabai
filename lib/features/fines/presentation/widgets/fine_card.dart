@@ -1,9 +1,3 @@
-// ========================
-// FineCard Widget (fine_card.dart)
-// ========================
-
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:grabai/core/theme/app_colors.dart';
@@ -31,6 +25,17 @@ class FineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // 📱 Dynamic sizing
+    double baseFont = screenWidth < 360
+        ? 11
+        : screenWidth < 400
+        ? 12
+        : 13;
+    double headingFont = baseFont + 1;
+    double iconSize = baseFont + 1;
+
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -64,6 +69,7 @@ class FineCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // 👤 Profile image
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
@@ -79,49 +85,83 @@ class FineCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
+
+            // 📄 Text and Status container
             Expanded(
-              child: Column(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(location, style: AppTextStyles.heading2),
-                  const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      Icon(IconlyLight.calendar, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(date, style: AppTextStyles.caption),
-                      const SizedBox(width: 10),
-                      Icon(IconlyLight.time_circle, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(time, style: AppTextStyles.caption),
-                    ],
+                  // ℹ️ Text info (name, date, time)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Tooltip(
+                          message: location,
+                          child: Text(
+                            location,
+                            style: AppTextStyles.heading2.copyWith(fontSize: headingFont),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Icon(IconlyLight.calendar, size: iconSize, color: Colors.grey[600]),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                date,
+                                style: AppTextStyles.caption.copyWith(fontSize: baseFont),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Icon(IconlyLight.time_circle, size: iconSize, color: Colors.grey[600]),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                time,
+                                style: AppTextStyles.caption.copyWith(fontSize: baseFont),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: isPaid
-                    ? AppColors.success.withOpacity(0.1)
-                    : AppColors.error.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    isPaid ? IconlyBold.tick_square : IconlyBold.close_square,
-                    size: 16,
-                    color: isPaid ? AppColors.success : AppColors.error,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    isPaid ? 'Paid' : 'Unpaid',
-                    style: TextStyle(
-                      color: isPaid ? AppColors.success : AppColors.error,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
+
+                  const SizedBox(width: 8),
+
+                  // ✅ Paid / Unpaid
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: isPaid
+                          ? AppColors.success.withOpacity(0.1)
+                          : AppColors.error.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          isPaid ? IconlyBold.tick_square : IconlyBold.close_square,
+                          size: iconSize,
+                          color: isPaid ? AppColors.success : AppColors.error,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          isPaid ? 'Paid' : 'Unpaid',
+                          style: TextStyle(
+                            color: isPaid ? AppColors.success : AppColors.error,
+                            fontWeight: FontWeight.w600,
+                            fontSize: baseFont,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

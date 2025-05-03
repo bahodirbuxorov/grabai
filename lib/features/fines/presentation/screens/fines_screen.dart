@@ -138,39 +138,46 @@ class _FinesScreenState extends State<FinesScreen> {
 
   Widget _buildFilterChips() {
     final labels = ['All', 'Paid', 'Unpaid'];
-    return Wrap(
-      spacing: 10,
-      children: List.generate(labels.length, (index) {
-        return ChoiceChip(
-          label: Text(labels[index]),
-          selected: selectedFilter == index,
-          selectedColor: AppColors.primary.withOpacity(0.2),
-          backgroundColor: Colors.grey.shade100,
-          labelStyle: TextStyle(
-            color: selectedFilter == index ? AppColors.primary : Colors.black87,
-            fontWeight: FontWeight.w600,
-          ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-          onSelected: (_) => setState(() => selectedFilter = index),
-        );
-      }),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Wrap(
+        spacing: 10,
+        children: List.generate(labels.length, (index) {
+          return ChoiceChip(
+            label: Text(labels[index]),
+            selected: selectedFilter == index,
+            selectedColor: AppColors.primary.withOpacity(0.2),
+            backgroundColor: Colors.grey.shade100,
+            labelStyle: TextStyle(
+              color: selectedFilter == index ? AppColors.primary : Colors.black87,
+              fontWeight: FontWeight.w600,
+            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            onSelected: (_) => setState(() => selectedFilter = index),
+          );
+        }),
+      ),
     );
   }
 
   Widget _buildSortToggle() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text('Violation Records', style: AppTextStyles.heading2),
-        TextButton.icon(
-          onPressed: () => setState(() => sortByDate = !sortByDate),
-          icon: Icon(sortByDate ? Icons.calendar_month : Icons.sort, size: 20),
-          label: Text(sortByDate ? 'Sort by Date' : 'Sort by Status'),
-          style: TextButton.styleFrom(foregroundColor: AppColors.primary),
-        ),
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Violation Records', style: AppTextStyles.heading2),
+          TextButton.icon(
+            onPressed: () => setState(() => sortByDate = !sortByDate),
+            icon: Icon(sortByDate ? Icons.calendar_month : Icons.sort, size: 20),
+            label: Text(sortByDate ? 'Sort by Date' : 'Sort by Status'),
+            style: TextButton.styleFrom(foregroundColor: AppColors.primary),
+          ),
+        ],
+      ),
     );
   }
+
 
   Widget _buildFinesList() {
     if (isLoading) {

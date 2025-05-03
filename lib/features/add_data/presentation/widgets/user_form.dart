@@ -38,9 +38,11 @@ class _UserFormState extends State<UserForm> {
       );
 
       if (context.mounted) {
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(success ? '✅ User added!' : '❌ Failed')),
+          SnackBar(
+            content: Text(success ? '✅ User added!' : '❌ Failed to add user'),
+            backgroundColor: success ? Colors.green : Colors.red,
+          ),
         );
         if (success) {
           _firstName.clear();
@@ -56,59 +58,99 @@ class _UserFormState extends State<UserForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: _pickImage,
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade300,
-                image: _imageFile != null
-                    ? DecorationImage(image: FileImage(_imageFile!), fit: BoxFit.cover)
-                    : null,
-              ),
-              child: _imageFile == null
-                  ? const Icon(IconlyLight.camera, size: 30, color: Colors.grey)
-                  : null,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            // Avatar with camera icon
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                    image: _imageFile != null
+                        ? DecorationImage(image: FileImage(_imageFile!), fit: BoxFit.cover)
+                        : null,
+                    color: Colors.grey.shade200,
+                  ),
+                  child: _imageFile == null
+                      ? const Icon(IconlyLight.profile, size: 40, color: Colors.grey)
+                      : null,
+                ),
+                Positioned(
+                  bottom: 6,
+                  right: 6,
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      radius: 16,
+                      backgroundColor: AppColors.primary,
+                      child: const Icon(IconlyBold.camera, color: Colors.white, size: 18),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 24),
-          TextFormField(
-            controller: _firstName,
-            decoration: const InputDecoration(labelText: 'First Name'),
-            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _lastName,
-            decoration: const InputDecoration(labelText: 'Last Name'),
-            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _age,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Age'),
-            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: _submit,
-              icon: const Icon(IconlyBold.plus),
-              label: const Text('Save User'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                backgroundColor: AppColors.primary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+
+            const SizedBox(height: 30),
+
+            // First name
+            _buildInputField(_firstName, 'First Name'),
+            const SizedBox(height: 16),
+
+            // Last name
+            _buildInputField(_lastName, 'Last Name'),
+            const SizedBox(height: 16),
+
+            // Age
+            _buildInputField(_age, 'Age', isNumber: true),
+            const SizedBox(height: 30),
+
+            // Submit button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _submit,
+                icon: const Icon(IconlyBold.plus, color: Colors.white),
+                label: const Text('Save User', style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  backgroundColor: AppColors.primary,
+                  elevation: 4,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInputField(TextEditingController controller, String label, {bool isNumber = false}) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      validator: (val) => val == null || val.isEmpty ? 'Required field' : null,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.grey.shade100,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.primary),
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
     );
   }

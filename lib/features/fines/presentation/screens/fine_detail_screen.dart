@@ -126,7 +126,7 @@ class _FineDetailScreenState extends State<FineDetailScreen> {
           const Text('Fine Amount', style: AppTextStyles.caption),
           const SizedBox(height: 8),
           Text(
-            widget.isPaid ? '0 UZS' : '210,000 UZS',
+            widget.isPaid ? '0 UZS' : '375,000 UZS',
             style: AppTextStyles.heading1.copyWith(
               color: widget.isPaid ? Colors.grey : AppColors.primary,
               fontWeight: FontWeight.bold,
