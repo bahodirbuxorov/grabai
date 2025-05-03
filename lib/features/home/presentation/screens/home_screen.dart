@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grabai/features/add_data/presentation/screens/add_user_screen.dart';
-import 'package:grabai/features/settings/presentation/screens.dart';
 
 import 'package:grabai/features/fines/presentation/screens/fines_screen.dart';
-import 'package:grabai/features/face_scan/presentation/screens/face_scan_screen.dart';
 import 'package:grabai/features/stats/presentation/screens/stats_screen.dart';
 import 'package:grabai/core/widgets/custom_bottom_nav_bar.dart';
 
@@ -19,9 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = const [
     FinesScreen(),
-    FaceScanScreen(),
     StatsScreen(),
-    SettingsScreen(),
     AddUserScreen(),
   ];
 

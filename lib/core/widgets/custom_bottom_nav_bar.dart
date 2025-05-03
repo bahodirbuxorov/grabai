@@ -30,21 +30,13 @@ class CustomBottomNavBar extends StatelessWidget {
           activeIcon: Icon(IconlyBold.document),
           label: 'Fines',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(IconlyLight.camera),
-          activeIcon: Icon(IconlyBold.camera),
-          label: 'Scan',
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(IconlyLight.graph),
           activeIcon: Icon(IconlyBold.graph),
           label: 'Stats',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(IconlyLight.setting),
-          activeIcon: Icon(IconlyBold.setting),
-          label: 'Settings',
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(IconlyLight.add_user),
           activeIcon: Icon(IconlyBold.add_user),

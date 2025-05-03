@@ -24,16 +24,16 @@ class AppRouter {
       case '/fine-detail':
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder:
-              (_) => FineDetailScreen(
-                imageUrl: args['imageUrl'],
-                date: args['date'],
-                time: args['time'],
-                location: args['location'],
-                isPaid: args['isPaid'],
-                personId: args['personId'],
-              ),
+          builder: (_) => FineDetailScreen(
+            frameImgUrl: args['frameImgUrl'], // <- to'g'ri nom
+            date: args['date'],
+            time: args['time'],
+            location: args['location'],
+            isPaid: args['isPaid'],
+            personId: args['personId'],
+          ),
         );
+
 
       default:
         return MaterialPageRoute(

@@ -16,26 +16,36 @@ class FineDetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.bottomLeft,
       children: [
-        AspectRatio(
-          aspectRatio: 4 / 3,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => FullScreenImageViewer(imageUrl: imageUrl),
+              ),
+            );
+          },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.contain,
-              width: double.infinity,
-              errorBuilder: (_, __, ___) => Container(
-                color: Colors.grey.shade200,
-                alignment: Alignment.center,
-                child: const Icon(IconlyBold.image, size: 50, color: Colors.grey),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.network(
+                Uri.encodeFull(imageUrl),
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+                errorBuilder: (_, __, ___) => Container(
+                  color: Colors.grey.shade200,
+                  alignment: Alignment.center,
+                  child: const Icon(IconlyBold.image, size: 50, color: Colors.grey),
+                ),
               ),
             ),
           ),
         ),
         Positioned(
-          bottom: -12,
-          left: 20,
+          bottom: 12,
+          left: 16,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
             decoration: BoxDecoration(
@@ -46,7 +56,7 @@ class FineDetailHeader extends StatelessWidget {
                   color: Colors.black12,
                   blurRadius: 6,
                   offset: Offset(0, 3),
-                )
+                ),
               ],
             ),
             child: Text(
@@ -60,6 +70,46 @@ class FineDetailHeader extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class FullScreenImageViewer extends StatelessWidget {
+  final String imageUrl;
+
+  const FullScreenImageViewer({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          Center(
+            child: Hero(
+              tag: imageUrl,
+              child: InteractiveViewer(
+                child: Image.network(
+                  Uri.encodeFull(imageUrl),
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.broken_image, color: Colors.white, size: 80),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 12,
+            left: 12,
+            child: CircleAvatar(
+              backgroundColor: Colors.black54,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

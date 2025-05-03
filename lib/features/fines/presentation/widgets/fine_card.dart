@@ -1,10 +1,17 @@
+// ========================
+// FineCard Widget (fine_card.dart)
+// ========================
+
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:grabai/core/theme/app_colors.dart';
 import 'package:grabai/core/theme/text_styles.dart';
-import 'package:iconly/iconly.dart';
 
 class FineCard extends StatelessWidget {
   final String imageUrl;
+  final String frameImgUrl;
   final String date;
   final String time;
   final String location;
@@ -14,11 +21,12 @@ class FineCard extends StatelessWidget {
   const FineCard({
     super.key,
     required this.imageUrl,
+    required this.frameImgUrl,
     required this.date,
     required this.time,
     required this.location,
+    required this.isPaid,
     required this.personId,
-    this.isPaid = false,
   });
 
   @override
@@ -29,7 +37,7 @@ class FineCard extends StatelessWidget {
           context,
           '/fine-detail',
           arguments: {
-            'imageUrl': imageUrl,
+            'frameImgUrl': frameImgUrl,
             'date': date,
             'time': time,
             'location': location,
@@ -37,7 +45,6 @@ class FineCard extends StatelessWidget {
             'personId': personId,
           },
         );
-
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -52,9 +59,7 @@ class FineCard extends StatelessWidget {
               offset: Offset(0, 6),
             ),
           ],
-          border: Border.all(
-            color: Colors.grey.withOpacity(0.15),
-          ),
+          border: Border.all(color: Colors.grey.withOpacity(0.15)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

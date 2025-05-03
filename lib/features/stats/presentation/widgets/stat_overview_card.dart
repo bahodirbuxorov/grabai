@@ -38,6 +38,7 @@ class StatOverviewCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 22,
+            // ignore: deprecated_member_use
             backgroundColor: iconColor.withOpacity(0.1),
             child: Icon(icon, size: 24, color: iconColor),
           ),
