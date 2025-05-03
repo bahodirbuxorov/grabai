@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:grabai/core/theme/app_colors.dart';
@@ -64,6 +66,8 @@ class FineCard extends StatelessWidget {
               offset: Offset(0, 6),
             ),
           ],
+          // ignore: duplicate_ignore
+          // ignore: deprecated_member_use
           border: Border.all(color: Colors.grey.withOpacity(0.15)),
         ),
         child: Row(

@@ -84,7 +84,7 @@ class _FineDetailScreenState extends State<FineDetailScreen> {
           FineDetailInfoBlock(
             date: widget.date,
             time: widget.time,
-            location: widget.location,
+            location: "Uzbekistan, Tashkent, Sergeli district, Yangi Sergeli 12",
             cameraId: '#CAM-2025-03',
             personName: personName,
             genderAge: '$gender / $age',

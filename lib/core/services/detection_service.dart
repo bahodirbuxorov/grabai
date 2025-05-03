@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class DetectionService {
   final String _baseUrl = 'http://10.30.11.44:1111/api/v1/det';
 
-  Future<List<Map<String, dynamic>>> getDetections({int page = 1, int limit = 10}) async {
+  Future<List<Map<String, dynamic>>> getDetections({int page = 1, int limit = 20}) async {
     final uri = Uri.parse('$_baseUrl?page=$page&limit=$limit');
     final response = await http.get(uri);
 

@@ -38,6 +38,7 @@ class _UserFormState extends State<UserForm> {
       );
 
       if (context.mounted) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(success ? '✅ User added!' : '❌ Failed to add user'),
@@ -73,6 +74,7 @@ class _UserFormState extends State<UserForm> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
